@@ -15,6 +15,10 @@ export class TaskService {
   getTasks(): Observable<Task[]> {
     // const tasks = of(TASKS);
     // return tasks; -- was used to take data from an inside json file, without using a json server
-    return this.http.get<Task[]>(this.apiUrl)
+    return this.http.get<Task[]>(this.apiUrl);
+  }
+  deleteTask(task: Task): Observable<Task>{
+    const url = `${this.apiUrl}/${task.id}`;
+    return this.http.delete<Task>(url);
   }
 }
