@@ -5,6 +5,12 @@ import {Observable} from 'rxjs'
 // import {TASKS} from '../mock-tasks'; -- was used to take data from an inside json file, without using a json server
 import {Task} from '../Task';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,5 +26,9 @@ export class TaskService {
   deleteTask(task: Task): Observable<Task>{
     const url = `${this.apiUrl}/${task.id}`;
     return this.http.delete<Task>(url);
+  }
+  updateTaskReminder(task: Task): Observable<Task>{
+    const url = `${this.apiUrl}/${task.id}`;
+    return this.http.put<Task>(url, task, httpOptions);
   }
 }
