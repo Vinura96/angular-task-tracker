@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Observable, of} from 'rxjs'
-import {TASKS} from '../mock-tasks';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs'
+// import {of} from 'rxjs'
+// import {TASKS} from '../mock-tasks'; -- was used to take data from an inside json file, without using a json server
 import {Task} from '../Task';
 
 @Injectable({
@@ -8,9 +10,11 @@ import {Task} from '../Task';
 })
 export class TaskService {
 
-  constructor() { }
+  private apiUrl = 'http://localhost:5000/tasks'
+  constructor(private http:HttpClient) { }
   getTasks(): Observable<Task[]> {
-    const tasks = of(TASKS);
-    return tasks;
+    // const tasks = of(TASKS);
+    // return tasks; -- was used to take data from an inside json file, without using a json server
+    return this.http.get<Task[]>(this.apiUrl)
   }
 }
